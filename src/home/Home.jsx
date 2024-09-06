@@ -18,7 +18,7 @@ function Home() {
     }
     axios
       .post(
-        "http://localhost:4000/v1/product/likes",
+        "https://my-ecommerce-api-s605.onrender.com/v1/product/likes",
         { id, like: 1 },
         {
           headers: { Authorization: `Bearer ${user.token}` },
@@ -39,7 +39,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/v1/product/1/10", {
+      .get("https://my-ecommerce-api-s605.onrender.com/v1/product/1/10", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

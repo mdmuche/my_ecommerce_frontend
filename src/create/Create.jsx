@@ -51,7 +51,7 @@ function Create() {
     console.log(formData);
 
     axios
-      .post("http://localhost:4000/v1/admins", formData, {
+      .post("https://my-ecommerce-api-s605.onrender.com/v1/admins", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${user.token}`,

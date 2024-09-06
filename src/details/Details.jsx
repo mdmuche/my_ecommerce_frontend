@@ -29,7 +29,7 @@ function Details() {
     }
 
     axios
-      .get(`http://localhost:4000/v1/product/${id}`, {
+      .get(`https://my-ecommerce-api-s605.onrender.com/v1/product/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       .then((res) => {
@@ -49,7 +49,7 @@ function Details() {
     setDisable(true);
     console.log("product deleted!", id);
     axios
-      .delete(`http://localhost:4000/v1/admins/${id}`, {
+      .delete(`https://my-ecommerce-api-s605.onrender.com/v1/admins/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       .then((res) => {

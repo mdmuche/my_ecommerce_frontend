@@ -35,7 +35,7 @@ function Update() {
       return;
     }
     axios
-      .get(`http://localhost:4000/v1/product/${uid}`, {
+      .get(`https://my-ecommerce-api-s605.onrender.com/v1/product/${uid}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       .then((res) => {
