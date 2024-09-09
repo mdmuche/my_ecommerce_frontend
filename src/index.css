@@ -44,3 +44,9 @@ form.login {
   background: #fff;
   border-radius: 4px;
 }
+
+form .dont-account a {
+  text-decoration: none;
+  color: royalblue;
+  font-weight: bold;
+}
