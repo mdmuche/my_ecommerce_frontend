@@ -33,39 +33,45 @@ const Signup = () => {
   };
 
   return (
-    <form className="signup" onSubmit={handleSubmit}>
-      <h3>Sign Up</h3>
+    <div>
+      <form className="signup" onSubmit={handleSubmit}>
+        <h3>Sign Up</h3>
 
-      <label>FullName:</label>
-      <input
-        type="text"
-        onChange={(e) => setFullName(e.target.value)}
-        value={fullName}
-      />
+        <label>FullName:</label>
+        <input
+          type="text"
+          onChange={(e) => setFullName(e.target.value)}
+          value={fullName}
+        />
 
-      <label>Email address:</label>
-      <input
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
+        <label>Email address:</label>
+        <input
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
 
-      <label>Password:</label>
-      <input
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
+        <label>Password:</label>
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
 
-      <button className="bg-dark" disabled={isLoading}>
-        Sign up
-      </button>
-      <p className="dont-account">
-        Already have an account <Link to={"/login"}>Login</Link>
-      </p>
-      {formError && <div className="error">{formError}</div>}
-      {error && <div className="error">{error}</div>}
-    </form>
+        <button className="bg-dark" disabled={isLoading}>
+          Sign up
+        </button>
+        <p className="dont-account">
+          Already have an account <Link to={"/login"}>Login</Link>
+        </p>
+        {formError && <div className="error">{formError}</div>}
+        {error && <div className="error">{error}</div>}
+        <p>
+          Password must be at least 8 characters long and include at least one
+          lowercase letter, one uppercase letter, one number, and one symbol.
+        </p>
+      </form>
+    </div>
   );
 };
 
