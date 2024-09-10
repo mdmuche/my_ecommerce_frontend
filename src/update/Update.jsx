@@ -49,7 +49,7 @@ function Update() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [uid]);
+  }, [uid, user]);
 
   const handleSubmit = function (e) {
     if (!user) {
@@ -70,9 +70,13 @@ function Update() {
     console.log(formData);
 
     axios
-      .patch(`http://localhost:4000/v1/admins/${uid}`, formData, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      })
+      .patch(
+        `https://my-ecommerce-api-s605.onrender.com/v1/admins/${uid}`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         notify();
@@ -80,6 +84,11 @@ function Update() {
       })
       .catch((err) => {
         console.log(err.message);
+        setError("Failed to update product");
+
+        setTimeout(() => {
+          setError("");
+        }, 2000);
       });
   };
 
@@ -100,10 +109,10 @@ function Update() {
                   type="text"
                   name="prodName"
                   className="mt-3"
+                  value={prodName}
                   onChange={(e) => {
                     setProdName(e.target.value);
                   }}
-                  required
                 ></Form.Control>
               </Form.FloatingLabel>
               <Form.FloatingLabel label="prodPrice">
@@ -111,10 +120,10 @@ function Update() {
                   type="text"
                   name="prodPrice"
                   className="mt-3"
+                  value={prodPrice}
                   onChange={(e) => {
                     setProdPrice(e.target.value);
                   }}
-                  required
                 ></Form.Control>
               </Form.FloatingLabel>
               <Form.FloatingLabel label="prodSnippet">
@@ -122,10 +131,10 @@ function Update() {
                   as="textarea"
                   name="prodSnippet"
                   className="mt-3 h-25"
+                  value={prodSnippet}
                   onChange={(e) => {
                     setProdSnippet(e.target.value);
                   }}
-                  required
                 ></Form.Control>
               </Form.FloatingLabel>
               <Form.FloatingLabel label="prodDetails">
@@ -133,11 +142,11 @@ function Update() {
                   as="textarea"
                   name="prodDetails"
                   className="mt-3"
+                  value={prodDetails}
                   style={{ height: "150px" }}
                   onChange={(e) => {
                     setProdDetails(e.target.value);
                   }}
-                  required
                 ></Form.Control>
               </Form.FloatingLabel>
               <Form.Label className="mt-2">only prodImg(png/jpeg)</Form.Label>
@@ -148,7 +157,6 @@ function Update() {
                   setProdImg(e.target.files[0]);
                   setPreview(URL.createObjectURL(e.target.files[0]));
                 }}
-                required
               ></Form.Control>
               <div className="mt-4 text-center">
                 <span>Previous Image: </span>

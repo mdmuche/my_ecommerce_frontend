@@ -33,13 +33,13 @@ function Details() {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       .then((res) => {
-        console.log("response data for details", res.data);
+        // console.log("response data for details", res.data);
         setProd(res.data.product);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [id, user]);
 
   const handleDelete = function (x) {
     if (!user) {
@@ -47,13 +47,13 @@ function Details() {
     }
 
     setDisable(true);
-    console.log("product deleted!", id);
+    // console.log("product deleted!", id);
     axios
       .delete(`https://my-ecommerce-api-s605.onrender.com/v1/admins/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       .then((res) => {
-        console.log("response data to delete is", res.data);
+        // console.log("response data to delete is", res.data);
         notify();
         redirecting("/");
       })
@@ -63,7 +63,7 @@ function Details() {
   };
 
   return (
-    <div>
+    <div className="details-page">
       {prod && (
         <Container className="mt-4 text-center justify-content-center align-content-center">
           <h1>{prod.prodName}</h1>

@@ -30,6 +30,16 @@ function Create() {
 
   const { user } = useAuthContext();
 
+  const clearForm = () => {
+    setProdName("");
+    setProdPrice("");
+    setProdSnippet("");
+    setProdDetails("");
+    setProdImg(null);
+    setPreview(null);
+    setDisable(false);
+  };
+
   const handleSubmit = function (e) {
     e.preventDefault(e);
 
@@ -48,7 +58,7 @@ function Create() {
     formData.append("prodImg", prodImg);
     formData.append("id", cid);
 
-    console.log(formData);
+    // console.log(formData);
 
     axios
       .post("https://my-ecommerce-api-s605.onrender.com/v1/admins", formData, {
@@ -58,13 +68,19 @@ function Create() {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         //notify step 3
         notify();
         redirecting("/");
       })
       .catch((err) => {
         console.log(err.message);
+        setError("Failed to create product");
+        clearForm();
+
+        setTimeout(() => {
+          setError("");
+        }, 2000);
       });
   };
 
@@ -85,6 +101,7 @@ function Create() {
                   type="text"
                   name="prodName"
                   className="mt-3"
+                  value={prodName}
                   onChange={(e) => {
                     setProdName(e.target.value);
                   }}
@@ -96,6 +113,7 @@ function Create() {
                   type="text"
                   name="prodPrice"
                   className="mt-3"
+                  value={prodPrice}
                   onChange={(e) => {
                     setProdPrice(e.target.value);
                   }}
@@ -107,6 +125,7 @@ function Create() {
                   as="textarea"
                   name="prodSnippet"
                   className="mt-3 h-25"
+                  value={prodSnippet}
                   onChange={(e) => {
                     setProdSnippet(e.target.value);
                   }}
@@ -118,6 +137,7 @@ function Create() {
                   as="textarea"
                   name="prodDetails"
                   className="mt-3"
+                  value={prodDetails}
                   style={{ height: "150px" }}
                   onChange={(e) => {
                     setProdDetails(e.target.value);

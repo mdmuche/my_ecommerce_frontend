@@ -6,12 +6,30 @@ const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState(null);
   const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(fullName, email, password);
+    //input validation
+    if (!fullName || !email || !password) {
+      setFormError("Both email and password are required.");
+      return;
+    }
+
+    setFormError(null); // Clear any existing form errors
+
+    try {
+      await signup(fullName, email, password);
+
+      // clear input fields on successful login
+      setFullName("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.error("register error", error);
+    }
   };
 
   return (
@@ -45,6 +63,7 @@ const Signup = () => {
       <p className="dont-account">
         Already have an account <Link to={"/login"}>Login</Link>
       </p>
+      {formError && <div className="error">{formError}</div>}
       {error && <div className="error">{error}</div>}
     </form>
   );

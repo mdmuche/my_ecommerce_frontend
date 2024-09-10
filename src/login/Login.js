@@ -5,12 +5,29 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState(null);
   const { login, error, isLoading } = useLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await login(email, password);
+    // input validation
+    if (!email || !password) {
+      setFormError("Both email and password are required.");
+      return;
+    }
+
+    setFormError(null); // Clear any existing form errors
+
+    try {
+      await login(email, password);
+
+      // clear input fields on successful login
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.error("login error", error);
+    }
   };
 
   return (
@@ -36,6 +53,7 @@ const Login = () => {
       <p className="dont-account">
         Don't have an account <Link to={"/signup"}>Register</Link>
       </p>
+      {formError && <div className="error">{formError}</div>}
       {error && <div className="error">{error}</div>}
     </form>
   );

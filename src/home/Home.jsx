@@ -10,7 +10,7 @@ function Home() {
   let [db, setDb] = useState([]);
   let [like, setLike] = useState(0);
 
-  console.log("db is", db);
+  const noProducts = db.length === 0;
 
   const handleLike = function (id) {
     if (!user) {
@@ -25,7 +25,6 @@ function Home() {
         }
       )
       .then((res) => {
-        console.log("response data for like is", res.data);
         setLike((like = like + 1));
       })
       .catch((err) => {
@@ -33,19 +32,14 @@ function Home() {
       });
   };
 
-  console.log("user is", user);
-
-  console.log("user token is", user.token);
-
   useEffect(() => {
     axios
-      .get("https://my-ecommerce-api-s605.onrender.com/v1/product/1/10", {
+      .get("https://my-ecommerce-api-s605.onrender.com/v1/product/1/5", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       })
       .then((resp) => {
-        console.log("response data", resp.data);
         setDb(resp.data.products.docs);
       })
       .catch((err) => {
@@ -53,12 +47,15 @@ function Home() {
       });
   }, [like, user.token]);
   return (
-    <div>
+    <div className={`home-page ${noProducts ? "flex-display" : ""}`}>
       <Container>
         <h1>
           All Product
           {/* {location.state.id} */}
         </h1>
+        <h3 className="welcome">
+          welcome, {user.userDetails.role + " " + user.userDetails.fullName}
+        </h3>
         <Row className="align-content-center justify-content-center gap-3">
           {db && db.length > 0 ? (
             db.map((prod) => (
@@ -98,7 +95,7 @@ function Home() {
               </Col>
             ))
           ) : (
-            <p>No product available</p>
+            <p className="no-prods">No product available!!!</p>
           )}
         </Row>
       </Container>
